@@ -20,9 +20,7 @@ public class BookmarkNode {
         self.title = title
     }
 
-    public var canDelete: Bool {
-        return false
-    }
+    public var canDelete = false
 }
 
 public class BookmarkSeparator: BookmarkNode {
@@ -42,10 +40,7 @@ public class BookmarkItem: BookmarkNode {
     public init(guid: String, title: String, url: String) {
         self.url = url
         super.init(guid: guid, title: title)
-    }
-
-    override public var canDelete: Bool {
-        return true
+        self.canDelete = true
     }
 }
 
