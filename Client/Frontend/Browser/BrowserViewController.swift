@@ -814,7 +814,7 @@ class BrowserViewController: UIViewController {
     }
 
     private func removeBookmark(url: String) {
-        profile.bookmarks.removeByURL(url).uponQueue(dispatch_get_main_queue()) { res in
+        profile.bookmarks.modelFactory.removeByURL(url).uponQueue(dispatch_get_main_queue()) { res in
             if res.isSuccess {
                 self.toolbar?.updateBookmarkStatus(false)
                 self.urlBar.updateBookmarkStatus(false)
@@ -917,7 +917,7 @@ class BrowserViewController: UIViewController {
             return
         }
 
-        profile.bookmarks.isBookmarked(url).uponQueue(dispatch_get_main_queue()) { result in
+        profile.bookmarks.modelFactory.isBookmarked(url).uponQueue(dispatch_get_main_queue()) { result in
             guard let bookmarked = result.successValue else {
                 log.error("Error getting bookmark status: \(result.failureValue).")
                 return
@@ -1348,7 +1348,7 @@ extension BrowserViewController: BrowserToolbarDelegate {
                 log.error("Bookmark error: No tab is selected, or no URL in tab.")
                 return
         }
-        profile.bookmarks.isBookmarked(url).uponQueue(dispatch_get_main_queue()) {
+        profile.bookmarks.modelFactory.isBookmarked(url).uponQueue(dispatch_get_main_queue()) {
             guard let isBookmarked = $0.successValue else {
                 log.error("Bookmark error: \($0.failureValue).")
                 return
@@ -1663,7 +1663,7 @@ extension BrowserViewController: TabManagerDelegate {
                 if AboutUtils.isAboutURL(webView.URL) {
                     // Indeed, because we don't show the toolbar at all, don't even blank the star.
                 } else {
-                    profile.bookmarks.isBookmarked(url).uponQueue(dispatch_get_main_queue()) {
+                    profile.bookmarks.modelFactory.isBookmarked(url).uponQueue(dispatch_get_main_queue()) {
                         guard let isBookmarked = $0.successValue else {
                             log.error("Error getting bookmark status: \($0.failureValue).")
                             return

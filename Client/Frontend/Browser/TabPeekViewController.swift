@@ -130,7 +130,7 @@ class TabPeekViewController: UIViewController, WKNavigationDelegate {
     func setState(withProfile browserProfile: BrowserProfile, clientPickerDelegate: ClientPickerViewControllerDelegate) {
         guard let displayURL = tab?.url?.absoluteString where displayURL.characters.count > 0 else { return }
 
-        browserProfile.bookmarks.isBookmarked(displayURL).upon {
+        browserProfile.bookmarks.modelFactory.isBookmarked(displayURL).upon {
             self.isBookmarked = $0.successValue ?? false
         }
 
