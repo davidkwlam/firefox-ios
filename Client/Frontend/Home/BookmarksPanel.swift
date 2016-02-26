@@ -238,7 +238,7 @@ class BookmarksPanel: SiteTableViewController, HomePanel {
             let nextController = BookmarksPanel()
             nextController.parentFolders = parentFolders + [source.current]
             nextController.bookmarkFolder = folder
-            nextController.source = source
+            nextController.source = BookmarksModel(modelFactory: source.modelFactory, root: folder)
             nextController.homePanelDelegate = self.homePanelDelegate
             nextController.profile = self.profile
             self.navigationController?.pushViewController(nextController, animated: true)
